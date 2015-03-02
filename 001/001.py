@@ -16,5 +16,12 @@ def multiples(limit):
 	        sum += i
 	return sum
 
+def mult_rec(limit):
+    if limit > 0:
+        if (limit % 3 == 0) or (limit % 5 == 0):
+            # sum += i
+            print(limit)
+        mult_rec(limit-1)
 
-print(multiples(1000))
+# print(multiples(1000))
+print(mult_rec(10))
