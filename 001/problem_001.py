@@ -6,4 +6,14 @@ def multiples(limit):
   return sum
 
 
-print(multiples(1000))
+def mult_rec(i):
+  if i == 0:
+    return i
+  elif (i % 3 == 0) or (i % 5 == 0):
+    return i + mult_rec(i - 1)
+  else:
+    return mult_rec(i - 1)
+
+
+print(mult_rec(9))
+# print(multiples(1000))
