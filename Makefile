@@ -9,8 +9,8 @@ run: solution
 	@echo "=========="
 	@./solution
 	@echo "\n=========="
-	rm -rf ./solution ./solution
+	@rm -rf ./solution
 
 
 clean:
-	rm -rf ./solution ./solution
+	@rm -rf ./solution
