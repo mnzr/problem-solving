@@ -1,11 +1,12 @@
 CXX=g++
-CXXFLAGS=-Wall
+DEBUG=-g
+CXXFLAGS=$(DEBUG) -std=c++11 -Wall
 
 build: solution
 	$(CXX) $(CXXFLAGS) solution.cpp -o solution
 
 run: solution
-	$(CXX) solution.cpp -o solution
+	$(CXX) $(CXXFLAGS) solution.cpp -o solution
 	@echo "=========="
 	@./solution
 	@echo "\n=========="
