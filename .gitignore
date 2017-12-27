@@ -1,7 +1,10 @@
 # Python
 *.py[cod]
+# For Pytest
+.cache
 
 # For C
 *.o
 *.out
 Makefile
+
