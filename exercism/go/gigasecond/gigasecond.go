@@ -10,7 +10,7 @@ import "time"
 // gigasecond age.
 func AddGigasecond(t time.Time) time.Time {
 	// const GigaInt = 1000000000
-	// var gigaseconds = time.Duration(GigaInt) * time.Second
-	return t.Add(1000000000)
+	// var gigaseconds = GigaInt * time.Second
 	// return t.Add(gigaseconds)
+	return t.Add(1e18)
 }
