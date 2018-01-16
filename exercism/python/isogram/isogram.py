@@ -11,13 +11,3 @@ def is_isogram(string):
     if len(new_string) == len(set(new_string)):
         return True
     return False
-        
-# test_strings = [
-#     "lumberjacks",
-#     "background",
-#     "downstream",
-#     "six-year-old",
-#     "tesseract"
-#     ]
-
-# print(len(list(filter(lambda x: is_isogram(x), test_strings))))
