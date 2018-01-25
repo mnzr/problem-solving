@@ -1,30 +1,43 @@
-// This is a "stub" file.  It's a little start on your solution.
-// It's not a complete solution though; you have to write some code.
+package bob
 
-// Package bob should have a package comment that summarizes what it's about.
-// https://golang.org/doc/effective_go.html#commentary
-// package bob
-package main
+// package main
+
+import (
+	"strings"
+)
 
 // Hey should have a comment documenting it.
 func Hey(remark string) string {
-	// Write some code here to pass the test suite.
-	// Then remove all the stock comments.
-	// They're here to help you get started but they only clutter a finished solution.
-	// If you leave them in, reviewers may protest!
+	remark = strings.TrimSpace(remark)
+
+	if remark == "" {
+		return "Fine. Be that way!"
+	}
 
 	length := len(remark)
 	last_char := remark[length-1]
 	// fmt.Println(remark[length-1])
+
 	if last_char == '?' {
+		if remark == strings.ToUpper(remark) {
+			return "Calm down, I know what I'm doing!"
+		}
 		return "Sure."
 	}
-	if last_char == '?' {
-		return "Sure."
+	if remark == strings.ToUpper(remark) {
+		return "Whoa, chill out!"
 	}
-	return ""
+
+	if remark == "Bob" {
+		return "Whoa, chill out!"
+	}
+
+	return "Whatever."
 }
 
-func main() {
-	Hey("Ki hoise?")
-}
+// func main() {
+// 	// fmt.Println(Hey("Ki hoise?"))
+// 	// fmt.Println(Hey("KI HOISE!"))
+// 	// fmt.Println(Hey("Ki hoise!"))
+// 	// fmt.Println(Hey("\t\t\t\t\t\t\t\t\t\t"))
+// }
