@@ -4,37 +4,35 @@ import (
 	"fmt"
 )
 
-func findSequence(numbers []int) int {
-	var multipleOccurances []int
-	sum := 0
+func increaseCount(number int, occuranceMap map[int]int) {
+	_, ok := occuranceMap[number]
+	if !ok {
+		occuranceMap[number] = 1
+	} else {
+		occuranceMap[number]++
+	}
+}
+
+func findOccurances(numbers []int) map[int]int {
+	multipleOccurances := make(map[int]int)
 	previousNumber := numbers[0]
 	if previousNumber == numbers[len(numbers)-1] {
-		ok := false
-		for _, s := range multipleOccurances {
-			if s == previousNumber {
-				ok = true
-			}
-		}
-		if ok != true {
-			multipleOccurances = append(multipleOccurances, previousNumber)
-			sum += previousNumber
-		}
+		increaseCount(previousNumber, multipleOccurances)
 	}
 	for _, currentNumber := range numbers[1:] {
 		if previousNumber == currentNumber {
-			ok := false
-			for s := range multipleOccurances {
-				if s == previousNumber {
-					ok = true
-				}
-			}
-			if ok != true {
-				multipleOccurances = append(multipleOccurances, previousNumber)
-				sum += previousNumber
-			}
+			increaseCount(previousNumber, multipleOccurances)
 		} else {
 			previousNumber = currentNumber
 		}
+	}
+	return multipleOccurances
+}
+
+func sumOfOccurances(occuranceMap map[int]int) int {
+	sum := 0
+	for idx, num := range occuranceMap {
+		sum += idx * num
 	}
 	return sum
 }
@@ -53,5 +51,8 @@ func takeInput() []int {
 }
 
 func main() {
-	fmt.Println(findSequence(takeInput()))
+	numberInputs := takeInput()
+	occurances := findOccurances(numberInputs)
+	sum := sumOfOccurances(occurances)
+	fmt.Println(sum)
 }
