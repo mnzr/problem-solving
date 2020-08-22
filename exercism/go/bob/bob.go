@@ -1,72 +1,59 @@
+// Package bob simulates conversation with a lackadaisical teenager
 package bob
 
-// package main
-
 import (
-	"fmt"
-	"regexp"
 	"strings"
+	"unicode"
 )
 
-func isNumOnly(remark string) bool {
-	reg, _ := regexp.Compile("[^0-9]+")
-	processedString := reg.ReplaceAllString(remark, "")
-	if processedString == "" {
-		return false
-	}
-	return true
+// Remark is the struct to process a remark
+type Remark struct {
+	remark string
 }
 
-func isQuestion(remark string) bool {
-	if string(remark[len(remark)-1]) == "?" {
-		return true
-	}
-	return false
+func (r *Remark) isQuestion() bool {
+	return strings.HasSuffix(r.remark, "?")
 }
 
-func isExclamation(remark string) bool {
-	if string(remark[len(remark)-1]) == "!" {
-		return true
-	}
-	return false
+func (r *Remark) isEmpty() bool {
+	return r.remark == ""
 }
 
-func isYelling(remark string) bool {
-	if !isNumOnly(remark) && remark == strings.ToUpper(remark) {
-		return true
-	}
-	return false
-}
-
-// Hey should have a comment documenting it.
-func Hey(remark string) string {
-	remark = strings.TrimSpace(remark)
-
-	// if you address him without actually saying anything.
-	if remark == "" {
-		return "Fine. Be that way!"
-	}
-
-	if isQuestion(remark) {
-		if isYelling(remark) {
-			return "Calm down, I know what I'm doing!"
+func (r *Remark) hasChar() bool {
+	for _, c := range r.remark {
+		if unicode.IsLetter(c) {
+			return true
 		}
-		return "Sure."
 	}
+	return false
+}
 
-	if isYelling(remark) {
+func (r *Remark) isAllCaps() bool {
+	return (strings.ToUpper(r.remark) == r.remark) && r.hasChar()
+}
+
+func (r *Remark) respond() string {
+	switch {
+	case r.isAllCaps() && r.isQuestion():
+		return "Calm down, I know what I'm doing!"
+	case r.isAllCaps() && !r.isQuestion():
 		return "Whoa, chill out!"
-	}
-
-	if isNumOnly(remark) {
+	case r.isQuestion():
 		return "Sure."
+	case r.isEmpty():
+		return "Fine. Be that way!"
 	}
 	return "Whatever."
 }
 
-func main() {
-	fmt.Println(Hey("Ki hoise?"))
-	fmt.Println(Hey("KI HOISE!"))
-	fmt.Println(Hey("Ki hoise!"))
-	fmt.Println(Hey("\t\t\t\t\t\t\t\t\t\t"))
+func newRemark(s string) Remark {
+	return Remark{
+		remark: strings.TrimSpace(s),
+	}
+}
+
+// Hey generates responses from Bob
+func Hey(remark string) string {
+	r := newRemark(remark)
+	return r.respond()
 }
